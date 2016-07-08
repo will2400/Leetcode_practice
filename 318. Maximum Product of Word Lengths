@@ -1,0 +1,21 @@
+public class Solution {
+    public int maxProduct(String[] words) {
+        int res = 0;
+        int [] bitchar = new int [words.length];
+        for(int i = 0; i < words.length; i++){
+            int tmp = 0;
+            for (int j = 0; j < words[i].length();j++){
+                tmp |= 1<<(words[i].charAt(j) - 'a');
+            }
+            bitchar[i]= tmp;
+        }
+        for(int i = 0; i < words.length; i++){
+            for (int j= i+1; j < words.length; j++){
+                if((bitchar[i] & bitchar[j])== 0 && words[i].length()*words[j].length() > res){
+                 res = words[i].length()*words[j].length();
+            }
+            }
+        }
+        return res;
+    }       
+}
