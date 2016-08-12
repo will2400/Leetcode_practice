@@ -1,0 +1,461 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.Stack;
+
+public class Solution {
+    public static void main(String[] args) {
+    	int [] nums = new int[]{1,1,1,3};
+    	int [] nums1 = new int[]{1,2,2,3,4,3};
+    	int [] nums2 = new int[]{1,1,1,3,2,3};
+//    	System.out.println(Arrays.toString(productExceptSelf(nums)));
+//    	for (int element : productExceptSelf(nums)){
+//    		System.out.println(element);	
+//    	}
+    	
+//    	ktop(nums);
+    	String[] words = new String []{"abcw", "baz", "foo", "bar", "xtfn", "abcdef"};
+//   	test(nums,2);
+    	
+//    	isAnagram(s,t);
+        System.out.println(singleNumber1(nums));
+
+    	
+    }
+    public List<String> generateParethese(int n){
+    	
+    }
+    
+    public static int[] productexception(int [] nums){
+    	int[] res = new int[nums.length];
+    	res[res.length-1] = 1;
+    	for(int i = nums.length-2; i>=0;i--){
+    		res[i] = res[i+1]*nums[i+1];
+    	}
+    	int left =1;
+    	for(int i = 0; i<nums.length;i++){
+    		res[i] *= left;
+    		left *= nums[i];
+    	}
+    	return res;
+    }
+    
+    public static int kthsmallest(TreeNode root, int k){
+    	Stack<TreeNode> stack = new Stack<>();
+    	TreeNode n = root;
+    	while(n.left != null){
+    		stack.push(n);
+    		n = n.left;
+    	}
+    	while(k>0 && (n!=null || !stack.isEmpty())){
+    		if(n ==null){
+    			n = stack.pop();
+    			if(--k == 0){
+    				return n.val;
+    			}
+    			n = n.right;
+    		}else{
+    			stack.push(n);
+    			n = n.left;
+    		}
+    	}
+    	return n.val;
+    	
+    }
+    
+    public static int FindtheDuplicate(int[] nums){
+    	int size = nums.length;
+    	for(int i=0; i < size; i++){
+    		for(int j = i+1; j< size; j++){
+    			if(nums[i] == nums[j]){
+    				return nums[i];
+    			}
+    		}	
+    	}
+    	return 0;
+    }
+    
+
+    
+    public static String intToRoman(int num){
+        if(num <= 0){
+    		return "";
+    	}
+    		int [] nums = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+    		String [] symbols = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I" };
+    		StringBuilder res = new StringBuilder();
+    		int digit = 0;
+    		while(num>0){
+    			int times = num/nums[digit];
+    			System.out.println(nums[digit]);
+    			num -= nums[digit] * times;
+    			for (; times>0;times--){
+    				res.append(symbols[digit]);
+    				
+    			}
+    			digit++;
+    		}
+    		return res.toString();
+    }
+    
+    
+    public static int maxProduct(String[] words) {  
+    int result = 0;  
+    int [] bitChar = new int[words.length];  
+    for(int i = 0 ; i<words.length ; i++){  
+        int tmp = 0;  
+        for(int j=0 ; j<words[i].length() ; j++){  
+            tmp |= 1 << (words[i].charAt(j) -'a');
+            System.out.println(tmp);
+
+        }  
+        bitChar[i] = tmp;
+    }
+    for(int i = 0 ; i<words.length ; i++){  
+        for(int j = i+1 ; j<words.length ; j++){  
+            if((bitChar[i] & bitChar[j]) == 0 && words[i].length()*words[j].length() > result){  
+                result = words[i].length()*words[j].length();  
+            }  
+        }  
+    }  
+    return result;  
+    }    
+    
+    
+
+
+	public static int romanToInt(String s) {
+    	if(s.length()==0 || s == null){
+    		return 0;
+    	}
+    	Hashtable<Character, Integer> m = new Hashtable<>();
+	    m.put('I', 1);
+	    m.put('V', 5);
+	    m.put('X', 10);
+	    m.put('L', 50);
+	    m.put('C', 100);
+	    m.put('D', 500);
+	    m.put('M', 1000);
+	    
+	    int length = s.length();
+	    int result = m.get(s.charAt(length - 1));
+	    for (int i = length - 2; i >= 0; i--) {
+	        if (m.get(s.charAt(i + 1)) <= m.get(s.charAt(i))) {
+	            result += m.get(s.charAt(i));
+	        } else {
+	            result -= m.get(s.charAt(i));
+	        }
+	    }
+	    return result;
+        
+    }
+    
+    
+    public ArrayList<Integer> inordertraversal(TreeNode root){
+    	Stack<TreeNode> stack = new Stack<TreeNode>();
+    	ArrayList<Integer> res = new ArrayList<>();
+    	TreeNode cur = root;
+    	while(cur != null || !stack.empty()){
+    		while(cur != null){
+    			stack.add(cur);
+    			cur = cur.left;
+    		}
+    		cur = stack.peek();
+    		stack.pop();
+    		res.add(cur.val);
+    		cur = cur.right;
+    	}
+    	return res;
+    }
+    
+    
+    public ListNode reverseList(ListNode head) {
+    	ListNode prev = null;
+    			while(head != null){
+    				ListNode temp = head.next;
+    				head.next = prev;
+    				prev = head;
+    				head =temp;
+        }
+        return prev;
+    }
+        
+    
+    public ArrayList<Integer> preorderTraversal(TreeNode root) {
+    	ArrayList<Integer> res = new ArrayList<>();
+    	if(root == null){
+    		return res;
+    	}
+    	ArrayList<Integer> left = preorderTraversal(root.left);
+    	ArrayList<Integer> right =  preorderTraversal(root.right);
+    	
+    	res.add(root.val);
+    	res.addAll(left);
+    	res.addAll(right);
+    	
+    	return res;
+        
+    }
+    
+    public static int[] intersection(int[] nums1, int[] nums2) {
+        Arrays.sort(nums1);
+        Arrays.sort(nums2);
+        
+        int [] temp = new int[nums1.length];
+        int index = 0;
+        int i = 0;
+        int j = 0;
+        while(i < nums1.length && j < nums2.length ){
+            if (nums1[i] == nums2[j]){
+                if (index == 0 || temp[index-1] != nums1[i]){
+                    temp[index++] = nums1[i];
+                }
+                i++;
+                j++;
+            }else if (nums1[i] < nums2[j]){
+                i++;
+            }else {
+                j++;
+            }
+        }
+        int[] result = new int[index];
+        for (int k = 0; k < index; k++) {
+            result[k] = temp[k];
+        }    
+                
+    	Hashtable<Integer, Integer> h1 = new Hashtable<Integer, Integer>(); 
+    	for(int m:nums1){
+    		h1.put(m, h1.containsKey(m)? h1.get(m) + 1 : 1);
+    	}
+    	System.out.println(h1);
+    	Hashtable<Integer, Integer> h2 = new Hashtable<Integer, Integer>(); 
+    	for(int n:nums2){
+    		h2.put(n, h2.containsKey(n)? h2.get(n) + 1 : 1);
+    	}
+    	System.out.println(h2);
+    	ArrayList<Integer> res = new ArrayList<>();
+    	for(int a = 0; a < result.length; a++){
+    			for(int q= 0; q < Math.min(h1.get(result[a]),h2.get(result[a]));q++){
+    				res.add(result[a]);
+    			}
+    	}
+    	int p = 0;
+    	int [] ress = new int[res.size()];
+    	for(int num : res){
+    		ress[p] = num;
+    		p++;
+    	}
+    	return ress;
+    
+    }
+    
+    public static boolean containsDuplicate(int[] nums) {
+        HashSet<Integer> set = new HashSet<Integer>();
+        int size = nums.length;
+        for(int i = 0; i < size; i++){
+        	set.add(nums[i]);
+        }
+        int set_size = set.size();
+        if(size== set_size){
+        	return false;
+        }else{
+        	return true;
+        }
+        
+    }
+    
+    public static int integerBreak(int n) {
+    	if( n==2 || n ==3){
+    		return n-1;
+    	}else if(n == 4){
+    		return n;
+    	}else{
+    		int res = 1;
+    		while(n>4){
+    			res *=3;
+    			n -=3;
+    		}
+    		return res*n;
+    	}
+        
+    }    
+    
+    public static int countNumbersWithUniqueDigits(int n) {
+    	int res = 10;
+    	if(n==0){
+    		return res = 1;
+    	}
+    	else if(n==1){
+    		return res=10;
+    	}else{
+    		for(int j = 1; j < n; j++){
+    			int temp = 9;
+    			for(int i = 0; i < j; i++){
+    				temp *= 9-i;
+    			}
+				res = res + temp; 
+    		}
+    	}
+    	return res;        
+    }
+    
+    public static int titleToNumber(String s) {
+        char [] str = s.toCharArray();
+        int size = str.length;
+        int result = 0; 
+        for(int i = 0; i < size; i++){
+        	int a = str[i]-64;        	
+        	result += a*Math.pow(26, size-1-i);
+        }
+        return result;
+    }    
+    
+    public static boolean isAnagram(String s, String t) {
+        if(s.length() != t.length()){
+            return false;
+        }
+        char [] stringArr1 = s.toCharArray();
+        char [] stringArr2 = t.toCharArray();
+        Arrays.sort(stringArr1);
+        Arrays.sort(stringArr2);
+        for(int i=0; i < stringArr1.length; i++){
+        	if(stringArr1[i] == stringArr2[i]){
+        		continue;
+        	}else{
+        		return false;
+        	}
+        }
+        return true;
+
+    }
+	
+    
+    public static int[] singleNumber(int[] nums) {
+		Arrays.sort(nums);
+	    ArrayList<Integer> arr = new ArrayList<>();
+		for(int i = 0; i < nums.length; i++){
+			if (nums[i] != nums[i+1]){
+				continue;
+			}else{
+				arr.add(nums[i]);
+				i++;
+			}
+		}
+		int [] res = new int [arr.size()];
+		for (int j = 0; j <arr.size();j++){
+			res[j] = arr.get(j);
+		}
+		return res;
+		
+    }
+    
+    public static int[] productExceptSelf(int[] nums) {
+        int size = nums.length;
+        int[] output = new int[size];
+        for(int i= 0; i <size; i++){
+            int tmpa = 1;
+            int tmpb = 1;
+            for (int j = i+1; j < size; j++){
+                tmpa= tmpa * nums[j];
+            }
+            for (int k = i-1; k >= 0; k--){
+                tmpb = tmpb * nums[k];
+            }
+            output[i] = tmpa * tmpb;
+        }       
+        return output;    
+    }
+    
+    
+    public static void ktop(int[] nums){
+    	Hashtable<Integer,Integer> t = new Hashtable<Integer,Integer>();
+    	for(int i:nums){
+    		t.put(i, t.containsKey(i)? t.get(i) + 1 : 1);
+    	}
+    	for(Entry<Integer, Integer> e:t.entrySet()){
+    	    System.out.println(e.getKey()+" frequency:"+e.getValue());
+    	}
+    }
+    
+    public static void test(int[] nums, int k){
+    	Hashtable<Integer, Integer> h = new Hashtable<Integer, Integer>(); 
+    	ArrayList<Integer> arr = new ArrayList<>();
+    	ArrayList<Integer> result = new ArrayList<>();
+    	for(int i:nums){
+    		h.put(i, h.containsKey(i)? h.get(i) + 1 : 1);
+    	}
+        for (Integer j : h.keySet()) { 
+          System.out.println(j); 
+        } 
+        List<Integer> v = new ArrayList<Integer>(h.keySet()); 
+        System.out.println(v);
+        
+        //sort hashtable based on its values
+        Collections.sort(v,new Comparator<Object>(){ 
+            public int compare(Object arg0,Object arg1) 
+            {  
+                return h.get(arg1) - (h.get(arg0)); 
+            } 
+        } 
+        ); 
+        
+        for (Integer j : v) { 
+          System.out.println(j + " " + h.get(j)); 
+          arr.add(j);
+        } 
+        for(int i = 0; i < k; i++){
+        	System.out.println(arr.get(i));
+        	result.add(arr.get(i));
+        }
+      } 
+
+    
+    public int maxProfit(int[] prices) {
+        int profit = 0;
+        for(int i = 0; i < prices.length -1; i++){
+            int diff = 0;
+            diff = prices[i + 1] - prices[i];
+            if(diff > 0){
+                profit += diff;
+            }
+        }
+        return profit;
+    }
+    
+    public static boolean isSameTree(TreeNode p, TreeNode q){
+		if (p == null && q == null)
+			return true;
+		else if(p != null && q == null)
+			return false;
+		else if(p == null && q != null)
+			return false;
+		else{
+			if (p.val == q.val){
+				return isSameTree(p.right, q.right) && isSameTree(p.left, q.left);
+			}else
+				return false;
+				
+		}
+    	
+    }
+    
+ 
+
+	public class TreeNode {
+    	int val;
+    	TreeNode left;
+    	TreeNode right;
+    	TreeNode(int x) { val = x; }
+    }
+	
+	public class ListNode{
+		int val;
+		ListNode next;
+		ListNode(int x){val =x;}
+	}
+}
