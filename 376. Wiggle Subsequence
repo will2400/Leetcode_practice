@@ -1,0 +1,21 @@
+//track the turnning points
+
+public class Solution {
+    public int wiggleMaxLength(int[] nums) {
+        if(nums == null || nums.length ==0){
+            return 0;
+        }
+        int len = nums.length;
+        int max = 1;
+        for(int i=1, j=0; i<len; j=i, i++){
+            if(nums[j] < nums[i]){
+                max++;
+                while(i+1<len && nums[i]<=nums[i+1]) i++;
+            }else if(nums[j]>nums[i]){
+                max++;
+                while(i+1<len && nums[i] >=nums[i+1]) i++;
+            }
+        }
+        return max;
+    }
+}
