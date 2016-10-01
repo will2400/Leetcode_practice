@@ -1,0 +1,20 @@
+public class Solution {
+    public int minDepth(TreeNode root) {
+        if(root == null){
+            return 0;
+        }
+        
+        return getminD(root);
+        
+    }
+    public int getminD(TreeNode root){
+        if(root == null){
+            return Integer.MAX_VALUE;
+        }
+        if(root.right == null && root.left == null){
+            return 1;
+        }
+        
+        return Math.min(getminD(root.left),getminD(root.right))+1;
+    }
+}
