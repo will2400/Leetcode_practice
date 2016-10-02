@@ -1,0 +1,20 @@
+public class Solution {
+    public String countAndSay(int n) {
+        String prev = "1";
+        while(--n>0){
+            StringBuilder sb = new StringBuilder();
+            char[] prevchars = prev.toCharArray();
+            
+            for(int i=0; i<prevchars.length; i++){
+                int count = 1;
+                while((i+1)<prevchars.length && prevchars[i]==prevchars[i+1]){
+                    count ++;
+                    i++;
+                }
+                sb.append(String.valueOf(count)+String.valueOf(prevchars[i]));
+            }
+            prev = sb.toString();
+        }
+        return prev;
+    }
+}
