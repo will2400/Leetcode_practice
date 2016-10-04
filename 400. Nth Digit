@@ -1,0 +1,17 @@
+public class Solution {
+    public int findNthDigit(int n) {
+        int[] arr = {0, 9, 189, 2889, 38889, 488889, 5888889, 68888889, 788888889};
+        int index;
+        for(index =0; index<9 && arr[index]<n; index++){
+            continue;
+        }
+        int t = (n-arr[index-1]-1);
+        int num = (t/index) +(int)Math.pow(10,index-1);//find out the number
+        int p = index -(t%index) -1; //position from left to right
+        for(int i=0; i<p; i++){
+            num /=10;
+        }
+        
+        return num%10;
+    }
+}
