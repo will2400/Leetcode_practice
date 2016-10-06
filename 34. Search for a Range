@@ -1,0 +1,57 @@
+public class Solution {
+    public int[] searchRange(int[] nums, int target) {
+        int[] range = new int[2];
+        if(nums == null || nums.length ==0){
+            return range;
+        }
+        
+        int start = 0;
+        int end = nums.length-1;
+        
+        //find the 1st target
+        while(start+1<end){
+            int mid = start + (end - start)/2;
+            if(nums[mid] == target){
+                end = mid;
+            }else if(nums[mid]<target){
+                start = mid;
+            }else{
+                end = mid;
+            }
+        }
+        
+        if(nums[start] == target){
+            range[0] = start;
+        }else if(nums[end] == target){
+            range[0] = end;
+        }else{
+            range[0] = range[1] = -1;
+            return range;
+        }
+        
+        start = 0;
+        end = nums.length-1;
+        //find the last target
+        while(start+1<end){
+            int mid = start + (end - start)/2;
+            if(nums[mid] == target){
+                start = mid;
+            }else if(nums[mid]<target){
+                start = mid;
+            }else{
+                end = mid;
+            }
+        }
+        
+        if(nums[end] == target){
+            range[1] = end;
+        }else if(nums[start] == target){
+            range[1] = start;
+        }else{
+            range[0] = range[1] = -1;
+            return range;
+        }
+        
+        return range;
+    }
+}
