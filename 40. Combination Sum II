@@ -1,0 +1,45 @@
+public class Solution {
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        if(candidates == null){
+            return res;
+        }
+        
+        List<Integer> path = new ArrayList<Integer>();
+        Arrays.sort(candidates);
+        helper(candidates, target, path, 0, res);
+        
+        return res;
+        
+    }
+    
+    public void helper(int[] candidates, int target, List<Integer> path, int index, List<List<Integer>> res){
+        if(target == 0){
+            res.add(new ArrayList<Integer>(path));
+        }
+        
+        if(index >=candidates.length || target<0){
+            return;
+        }
+        
+        int prev = -1;
+        for(int i = index; i<candidates.length; i++){
+            
+            if(candidates[i] > target){
+                return;
+            }
+            //remove the duplicate nums in candidates
+            if(prev == candidates[i]){
+                continue;
+            }
+            
+            path.add(candidates[i]);
+            //the candidates numbers can only be used once
+            helper(candidates, target-candidates[i], path, i+1, res);
+            path.remove(path.size()-1);
+            
+            prev = candidates[i];
+            
+        }
+    }
+}
