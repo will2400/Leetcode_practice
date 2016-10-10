@@ -22,6 +22,7 @@ public class Solution {
     public void helper(List<List<Integer>> res, List<Integer> list, int[] visited, int[] nums){
         if(list.size() == nums.length){
             res.add(new ArrayList<Integer>(list));
+            return;
         }
         
         for(int i=0; i<nums.length; i++){
