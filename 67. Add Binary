@@ -1,0 +1,38 @@
+public class Solution {
+    public String addBinary(String a, String b) {
+        int lena = a.length()-1;
+        int lenb = b.length()-1;
+        int carr = 0;
+        StringBuilder sb = new StringBuilder();
+        
+        while(lena >=0 || lenb >=0){
+            int va = 0;
+            int vb = 0;
+            
+            if(lena >=0){
+                va = a.charAt(lena) =='0'? 0:1;
+                lena--;
+            }
+            
+            if(lenb>=0){
+                vb = b.charAt(lenb) =='0'? 0:1;
+                lenb--;
+            }
+            
+            int sum = va + vb +carr;
+            if(sum>=2){
+                sb.append(String.valueOf(sum-2));
+                carr =1;
+            }else{
+                sb.append(String.valueOf(sum));
+                carr =0;
+            }
+        }
+        if(carr ==1){
+            sb.append("1");
+        }
+        
+        return sb.reverse().toString();
+        
+    }
+}
