@@ -1,0 +1,28 @@
+public class Solution {
+    public int maxRotateFunction(int[] A) {
+        if(A == null || A.length ==0){
+            return 0;
+        }
+        
+        int len = A.length;
+        
+        int f0 = 0;
+        int sumA =0;
+        
+        for(int i=0; i<len; i++){
+            f0 += i*A[i];
+            sumA += A[i];
+        }
+        
+        int max = f0;
+        int fi = f0;
+        
+        for(int i=1; i<len; i++){
+            
+            fi = fi + sumA - len*A[len-i];
+            
+            max = Math.max(fi, max);
+        }
+        return max;
+    }
+}
