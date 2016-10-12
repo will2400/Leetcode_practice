@@ -1,0 +1,19 @@
+public class Solution {
+    public List<String> findRepeatedDnaSequences(String s) {
+        HashSet<String> hash = new HashSet<String>();
+        HashSet<String> dna = new HashSet<String>();
+        for (int i = 0; i < s.length()-9; i++) {
+            String subString = s.substring(i , i + 10);
+            if (hash.contains(subString)) {
+                dna.add(subString);
+            } else {
+                hash.add(subString);
+            }
+        }
+        List<String> result = new ArrayList<String>();
+        for (String d: dna) {
+            result.add(d);
+        }
+        return result;
+    }
+}
