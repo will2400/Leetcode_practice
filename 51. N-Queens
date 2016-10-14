@@ -1,0 +1,47 @@
+public class Solution {
+    public List<List<String>> solveNQueens(int n) {
+        List<List<String>> res = new ArrayList<List<String>>();
+        if(n < 1){
+            return res;
+        }
+        int[] colum = new int[n];
+        helper(colum, res, n, 0);
+        return res;
+        
+    }
+    
+    public void helper(int[] colum, List<List<String>> res, int n, int row){
+        if(row == n){
+            List<String> single_res = new ArrayList<String>();
+            for(int i = 0; i<n; i++){
+                StringBuilder sb = new StringBuilder();
+                for(int j = 0; j<n; j++){
+                    if(j == colum[i]){
+                        sb.append("Q");
+                    }else{
+                        sb.append(".");
+                    }
+                }
+                single_res.add(sb.toString());
+            }
+            res.add(single_res);
+        }else{
+            for(int i=0; i<n; i++){
+                colum[row] = i;
+                
+                if(isValid(row,colum)){
+                    helper(colum, res, n, row+1);
+                }
+            }
+        }
+    }
+    
+    public boolean isValid(int row, int[] colum){
+        for(int i=0; i<row; i++){
+            if(colum[row] == colum[i] || Math.abs(colum[row]-colum[i]) == row-i){
+                return false;
+            }
+        }
+        return true;
+    }
+}
