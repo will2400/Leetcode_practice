@@ -1,0 +1,37 @@
+public class Solution {
+    public boolean wordBreak(String s, Set<String> wordDict) {
+        if(s == null || s.length() == 0){
+            return true;
+        }
+        
+        int max = getMax(wordDict);
+        boolean[] canSeg = new boolean[s.length()+1];
+        
+        canSeg[0] = true;
+        for(int pos = 1; pos <= s.length(); pos++){
+            canSeg[pos] = false;
+            for(int last = 1; last<=max && last<=pos; last++){
+                if(!canSeg[pos-last]){
+                    continue;
+                }
+                // position 比 index 大 1 ex：position1～4，  index 0~3
+                //canSeg[postion]  substring(0,postion), postion 那位 不取
+                String word = s.substring(pos-last,pos);
+                if(wordDict.contains(word)){
+                    canSeg[pos] = true;
+                    break;
+                }
+            }
+        }
+        return canSeg[s.length()];
+        
+    }
+    
+    private int getMax(Set<String> dict){
+        int max = 0;
+        for(String word : dict){
+            max = Math.max(max, word.length());
+        }
+        return max;
+    }
+}
