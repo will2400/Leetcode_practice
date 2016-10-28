@@ -1,0 +1,23 @@
+public class Solution {
+    public int thirdMax(int[] nums) {
+        long res[] = {Long.MIN_VALUE, Long.MIN_VALUE, Long.MIN_VALUE};
+         for(int num : nums){
+             if(num < res[1] && num > res[0]){
+                res[0] = num;
+             }else if(num < res[2] && num > res[1]){
+                 res[0] = res[1];
+                 res[1] = num;
+             }else if(num > res[2]){
+                 res[0] = res[1];
+                 res[1] = res[2];
+                 res[2] = num;
+             }
+         }
+         
+         if(res[0] == Long.MIN_VALUE){
+             return (int)res[2];
+         }
+         
+         return (int)res[0];
+    }
+}
