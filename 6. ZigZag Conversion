@@ -1,0 +1,31 @@
+public class Solution {
+    public String convert(String s, int numRows) {
+        if(s == null || s.length() == 0){
+            return s;
+        }
+        
+        int length = s.length();
+        if(length <= numRows || numRows ==1){
+            return s;
+        }
+        
+        StringBuilder sb = new StringBuilder();
+        
+        int step = 2 * (numRows -1);
+        int count = 0;
+        
+        for(int i = 0; i < numRows; i++){
+            int interval = step - 2*i;
+            
+            for(int j = i; j <length; j += step){
+                sb.append(s.charAt(j));
+                count ++;
+                if(interval > 0 && interval < step && j + interval < length && count < length){
+                    sb.append(s.charAt(j + interval));
+                    count++;
+                }
+            }
+        }
+        return sb.toString();
+    }
+}
