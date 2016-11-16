@@ -1,0 +1,38 @@
+public class Solution {
+    public int longestPalindrome(String s) {
+        int longest = 0;
+        if(s == null || s.length() == 0){
+            return longest;
+        }
+        
+        HashMap<Character, Integer> ht = new HashMap<>();
+        
+        for(int i = 0; i < s.length(); i++){
+            char c = s.charAt(i);
+            if(!ht.containsKey(c)){
+                ht.put(c, 1);
+            }else{
+                ht.put(c, ht.get(c)+1);
+            }
+        }
+        
+        Set<Character> keys = ht.keySet();
+        Iterator<Character> itr = keys.iterator();
+        boolean odd = false;
+        while (itr.hasNext()) {
+            char x = itr.next();
+            if(ht.get(x)%2 == 0){
+                longest += ht.get(x);
+            }else{
+                longest += ht.get(x)-1;
+                odd = true;
+            }
+        }
+        if(odd){
+            return longest + 1;
+        }else{
+            return longest;
+        }
+
+    }
+}
